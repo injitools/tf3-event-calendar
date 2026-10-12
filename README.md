@@ -1,6 +1,6 @@
 # [NJ] Event Calendar & Year Clock
 
-A Transport Fever 3 mod: a reporting-year clock in the bottom bar and a calendar of all vehicles that will appear in or leave the vehicle store.
+A Transport Fever 3 mod: a reporting-period clock in the bottom bar and a calendar of all vehicles that will appear in or leave the vehicle store.
 
 ![Event Calendar & Year Clock](mod/nj_event_calendar_1/_metadata/0.png)
 
@@ -10,7 +10,7 @@ Author: [rushked](https://mod.io/u/rushked/). Available in the game's mod browse
 
 ## Features
 
-- **Reporting-year clock** in the bottom bar, next to Earnings. The game's yearly statistics and upkeep follow a fixed cycle of game time (24:21 min at calendar speed 1x), not the calendar; the clock shows how far the current cycle has run. The tooltip shows how many calendar days the cycle lasts at the current calendar speed.
+- **Reporting-period clock** in the bottom bar, next to Earnings. The game's yearly statistics and upkeep follow a fixed cycle of game time (24:21 min at calendar speed 1x), not the calendar; the clock shows how far the current cycle has run, and its tooltip shows the calendar date when the next one starts.
 - **Event calendar** (click the clock): every vehicle and multiple unit that appeared in or left the store since the game started and will do so later, grouped by year, with the game time left until each future year at the current calendar speed. Past years stay in the list, dimmed; the window opens at the current year.
   - Columns: vehicle type, picture (as in the store list), model, status (new / leaves the store), engine (horse, steam, diesel, electric), cargo specialization (the game's cargo class icons).
   - Filters by vehicle type, engine and specialization (any value within a group, all groups combined).

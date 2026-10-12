@@ -42,7 +42,7 @@ end
 local record CycleState
 	elapsed : number      -- seconds since the start of the current nominal year
 	year : number         -- length of the nominal year, s
-	calendarDays : number -- calendar days in a nominal year at the current speed (nil: calendar paused)
+	nextDate : string     -- calendar date when the next nominal year starts (nil: calendar paused)
 end
 
 local ReleaseCalendarClockPlugin = react.RegisterPluginRecipe(game_bar_widgets.GameBarInfoDisplayExtension, "ReleaseCalendarClockPlugin", function() : TreeNodeId
@@ -51,10 +51,16 @@ local ReleaseCalendarClockPlugin = react.RegisterPluginRecipe(game_bar_widgets.G
 		local gameTime = api.engine.getComponent(api.engine.util.getWorld(), api.type.ComponentType.GAME_TIME) as Engine.Component.GameTime
 		local year = api.util.getDefaultYearDuration()
 		local speed = api.engine.getComponent(api.engine.util.getWorld(), api.type.ComponentType.GAME_SPEED) as Engine.Component.GameSpeed
+		local elapsedMs = year > 0 and gameTime.gameTime % year or 0
+		local nextDate : string = nil
+		if year > 0 and speed and speed.millisPerDay and speed.millisPerDay > 0 then
+			local d = api.engine.util.getCalendarDate(gameTime.gameTime + (year - elapsedMs))
+			nextDate = api.util.formatDate(api.type.Date.new(d.year, d.month, d.day), api.type["enum"].DateFormat.MEDIUM)
+		end
 		return {
-			elapsed = year > 0 and (gameTime.gameTime % year) / 1000 or 0,
+			elapsed = elapsedMs / 1000,
 			year = year / 1000,
-			calendarDays = speed and speed.millisPerDay and speed.millisPerDay > 0 and year / speed.millisPerDay or nil,
+			nextDate = nextDate,
 		}
 	end)
 	local iconRef = react.useNodeRef()
@@ -72,10 +78,11 @@ local ReleaseCalendarClockPlugin = react.RegisterPluginRecipe(game_bar_widgets.G
 	local st = state:old()
 	-- short, several lines: a long tooltip stretches across half the screen and covers the button
 	local lines : {string} = { tr("clock_year", { elapsed = clock(st.elapsed), total = clock(st.year) }) }
-	if st.calendarDays then
-		lines[#lines + 1] = tr("clock_days", { days = api.util.formatDays(math.floor(st.calendarDays + 0.5)) })
+	-- the date of the next reporting year instead of its length in calendar days: "≈ 3 months" at calendar speed
+	-- 0.25x looked like a wrong year length (12.10.2026)
+	if st.nextDate then
+		lines[#lines + 1] = tr("clock_next", { date = st.nextDate })
 	end
-	lines[#lines + 1] = tr("clock_note")
 	lines[#lines + 1] = tr("clock_click")
 	return builtin.BoxLayout{
 		orientation = builtin.type.Orientation.Horizontal,
