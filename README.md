@@ -4,7 +4,7 @@ A Transport Fever 3 mod: a reporting-period clock in the bottom bar and a calend
 
 ![Event Calendar & Year Clock](mod/nj_event_calendar_1/_metadata/0.png)
 
-![The clock in the bottom bar, the event calendar and the vehicle details](media/screenshot_calendar.png)
+![The clock tooltip in the bottom bar, the event calendar and the vehicle details](media/screenshot_calendar.png)
 
 Author: [rushked](https://mod.io/u/rushked/). Available in the game's mod browser and on [mod.io](https://mod.io/g/transportfever3/m/nj-event-calendar-year-clock).
 
