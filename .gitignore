@@ -1,4 +1,5 @@
-# mod.io upload id written by the game into the staging copy (a backup sits in the repository root)
+# the mod.io link inside the mod folder: kept out so that a build from this repository does not update the
+# published mod (the id itself is in mod.io_fileid.txt at the root)
 **/_metadata/mod.io_fileid.txt
 __pycache__/
 *.pyc
