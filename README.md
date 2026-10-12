@@ -6,7 +6,7 @@ A Transport Fever 3 mod: a reporting-period clock in the bottom bar and a calend
 
 ![The clock tooltip in the bottom bar, the event calendar and the vehicle details](media/screenshot_calendar.png)
 
-Author: [rushked](https://mod.io/u/rushked/). Available in the game's mod browser and on [mod.io](https://mod.io/g/transportfever3/m/nj-event-calendar-year-clock).
+Author: [rushked](https://mod.io/u/rushked/). Available in the game's mod browser and on [mod.io](https://mod.io/g/transportfever3/m/nj-event-calendar-year-clock); a manual-install archive is on [Nexus Mods](https://www.nexusmods.com/transportfever3/mods/16).
 
 ## Features
 
@@ -26,7 +26,7 @@ Author: [rushked](https://mod.io/u/rushked/). Available in the game's mod browse
 
 ## Installation
 
-Subscribe in the game's mod browser (mod.io). Manual install: copy `mod/nj_event_calendar_1` into the game's user mods folder, e.g. `Steam/userdata/<your id>/3493540/local/mods/nj_event_calendar_1`, restart the game and enable the mod for your savegame.
+Subscribe in the game's mod browser (mod.io). Manual install: put the `nj_event_calendar_1` folder from the [Nexus Mods](https://www.nexusmods.com/transportfever3/mods/16) archive (or `mod/nj_event_calendar_1` from this repository) into the game's user mods folder, e.g. `Steam/userdata/<your id>/3493540/local/mods/nj_event_calendar_1`, restart the game and enable the mod for your savegame.
 
 ## Repository layout
 
