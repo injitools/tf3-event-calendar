@@ -1,0 +1,16 @@
+{
+    "authors": [
+        {
+            "name": "rushked",
+            "role": "CREATOR"
+        }
+    ],
+    "description": "Adds a clock to the bottom bar, next to Earnings. It shows how far the current reporting year has run: yearly statistics and upkeep follow a fixed cycle of game time (24:21 min at 1x), not the calendar.\n\nClick the clock to open the event calendar: every vehicle and train that appeared in or left the store since the game started, and every one that will, grouped by year. The list opens at the latest unlocked year; past years stay above it, and future years show the game time left at the current calendar speed. Each row shows the vehicle type, engine and cargo specialization, and the list can be filtered by any of them. Click a model to see the same vehicle details as in the vehicle store.\n\nAlso shows when inflation raises construction costs and when electrification becomes available.\n\nAvailable in all 13 languages of the game. Changes no game mechanics and stores nothing in the savegame.",
+    "name": "[NJ] Event Calendar & Year Clock",
+    "summary": "A reporting-year clock in the bottom bar and a calendar of past and upcoming vehicle releases and retirements, with filters and vehicle details.",
+    "tags": [
+        "Script Mod",
+        "Misc"
+    ],
+    "url": "https://mod.io/g/transportfever3/m/nj-event-calendar-year-clock"
+}
