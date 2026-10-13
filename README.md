@@ -1,20 +1,35 @@
 # [NJ] Event Calendar & Year Clock
 
-A Transport Fever 3 mod: a reporting-period clock in the bottom bar and a calendar of all vehicles that will appear in or leave the vehicle store.
+A Transport Fever 3 mod: a reporting-period clock in the bottom bar and a calendar of all vehicles and infrastructure that appeared or will appear in the game, or leave it.
 
 ![Event Calendar & Year Clock](mod/nj_event_calendar_1/_metadata/0.png)
 
-![The clock tooltip in the bottom bar, the event calendar and the vehicle details](media/screenshot_calendar.png)
+![The event calendar and the vehicle details](media/calendar_vehicle.png)
 
 Author: [rushked](https://mod.io/u/rushked/). Available in the game's mod browser and on [mod.io](https://mod.io/g/transportfever3/m/nj-event-calendar-year-clock); a manual-install archive is on [Nexus Mods](https://www.nexusmods.com/transportfever3/mods/16).
+
+## Screenshots
+
+| | |
+|---|---|
+| ![The clock in the bottom bar and its tooltip](media/clock_tooltip.png) | ![The clock tooltip at a calendar speed other than 1x](media/clock_tooltip_speed.png) |
+| The clock and its tooltip | At a calendar speed other than 1x |
+| ![Infrastructure: roads with their variants](media/calendar_roads.png) | ![Infrastructure: stations](media/calendar_stations.png) |
+| Roads: every variant with the construction menu's numbers | Stations |
+| ![Station prices by inflation step](media/calendar_station_prices.png) | ![A milestone: tram track catenary](media/calendar_milestone.png) |
+| Prices of buildings by inflation step | Milestones with the game's own description |
+| ![Construction cost inflation](media/calendar_inflation.png) | ![Available from the start](media/calendar_start.png) |
+| Construction cost inflation by year | What is available from the start of the game |
 
 ## Features
 
 - **Reporting-period clock** in the bottom bar, next to Earnings. The game's yearly statistics and upkeep follow a fixed cycle of game time (24:21 min at calendar speed 1x), not the calendar; the clock shows how far the current cycle has run, and its tooltip shows the calendar date when the next one starts.
 - **Event calendar** (click the clock): every vehicle and multiple unit that appeared in or left the store since the game started and will do so later, grouped by year, with the game time left until each future year at the current calendar speed. Past years stay in the list, dimmed; the window opens at the current year.
   - Columns: vehicle type, picture (as in the store list), model, status (new / leaves the store), engine (horse, steam, diesel, electric), cargo specialization (the game's cargo class icons).
-  - Filters by vehicle type, engine and specialization (any value within a group, all groups combined).
-  - Milestones: inflation steps of construction costs and the arrival of catenary.
+  - Infrastructure: roads, tracks, bridges, tunnels, stations and depots that become available or can no longer be built, including new versions of town roads and depots (era templates), railroad crossings, traffic lights, alleys and barriers; the switches for catenary, tram catenary, bus lanes and traffic lights. Variants that change in the same year are one row (like the game's own notification), the names are in the tooltip; an old version replaced by a namesake in the same year is not listed separately.
+  - Filters by type (vehicles | infrastructure | milestones), engine and specialization (any value within a group, all groups combined), and a search by name.
+  - Milestones: inflation steps of construction costs.
+  - Click an infrastructure row for its variants with pictures, years, the game's description and the construction menu's numbers (cost, upkeep, top speed); click an inflation step for what it multiplies, the factor now and by year.
   - Click a model to open the same vehicle details as in the vehicle store.
 - **All 13 game languages**: de, en, es, fr, it, ja, ko, nl, pl, pt_BR, ru, zh_CN, zh_TW.
 
@@ -38,6 +53,8 @@ mod/nj_event_calendar_1/                the mod as installed
   content/gui/release_calendar/
     clock_plugin.{res.lua,script.tl}   the clock (GameBarInfoDisplayExtension plugin)
     calendar_window.tl                 the event calendar and vehicle details windows
+    infra_events.tl                    infrastructure events (roads, tracks, bridges, tunnels, stations, depots …)
+    info_cards.tl                      info windows for infrastructure and inflation
     vehicle_details.tl                 copy of the vehicle store's info block
     i18n.tl                            UI strings in all game languages, language detection
     release_calendar.css.lua           styles
@@ -47,6 +64,7 @@ media/                                 screenshots for this README and the mod.i
 tools/
   make_engine_icons.py                 draws the engine icons (Pillow)
   test_release_calendar_i18n.lua       checks the UI strings: languages, placeholders, language detection
+  test_release_calendar_infra.lua      checks the infrastructure events on a fake game API
   tlrun.lua                            loads .tl modules in plain Lua for the test
 ```
 
@@ -56,6 +74,7 @@ The mod is written in [Teal](https://github.com/teal-language/tl) (typed Lua), l
 
 - Test of the UI strings (needs Lua 5.4 and Teal: `luarocks install tl`):
   `lua5.4 tools/test_release_calendar_i18n.lua`
+- Test of the infrastructure events: `lua5.4 tools/test_release_calendar_infra.lua`
 - Engine icons (needs Pillow): `python3 tools/make_engine_icons.py [preview.png]`
 - After adding or removing a file under `content/`, update `_content.json`. New files are only picked up after a full game restart.
 - When changing the name, summary or description in `_metadata/modinfo.json`, update the keys in `strings.json` too: they are the exact English texts.

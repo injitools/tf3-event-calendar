@@ -9,6 +9,8 @@
         "gui/release_calendar/icons/engine_electric@2x.tga",
         "gui/release_calendar/icons/engine_horse@2x.tga",
         "gui/release_calendar/icons/engine_steam@2x.tga",
+        "gui/release_calendar/info_cards.tl",
+        "gui/release_calendar/infra_events.tl",
         "gui/release_calendar/release_calendar.css.lua",
         "gui/release_calendar/vehicle_details.tl"
     ]

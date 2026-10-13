@@ -9,6 +9,7 @@ local react = ug_require "::/gui/main/react.lua" as React
 local engine_react_util = ug_require "::/gui/main/engine_react_util.tl" as EngineReactUtil
 local game_bar_widgets = ug_require "::/gui/game_bar/game_bar_widgets.tl" as GameBarWidgets
 local i18n = ug_require "/gui/release_calendar/i18n.tl" as ReleaseCalendarI18n
+local lang_util = ug_require "::/scripts/lang_util.tl" as LangUtil
 local tr = i18n.tr
 
 -- UI units: the clock icon is 18 x 18 (release_calendar.css.lua); the bottom bar is at most 80 high
@@ -43,6 +44,7 @@ local record CycleState
 	elapsed : number      -- seconds since the start of the current nominal year
 	year : number         -- length of the nominal year, s
 	nextDate : string     -- calendar date when the next nominal year starts (nil: calendar paused)
+	speed : number        -- calendar speed factor, as the game's speed control computes it (0: paused)
 end
 
 local ReleaseCalendarClockPlugin = react.RegisterPluginRecipe(game_bar_widgets.GameBarInfoDisplayExtension, "ReleaseCalendarClockPlugin", function() : TreeNodeId
@@ -57,10 +59,13 @@ local ReleaseCalendarClockPlugin = react.RegisterPluginRecipe(game_bar_widgets.G
 			local d = api.engine.util.getCalendarDate(gameTime.gameTime + (year - elapsedMs))
 			nextDate = api.util.formatDate(api.type.Date.new(d.year, d.month, d.day), api.type["enum"].DateFormat.MEDIUM)
 		end
+		-- the factor like game_bar_widgets.millisPerDayToFactor
+		local factor = (speed and speed.millisPerDay and speed.millisPerDay > 0) and api.util.getDefaultDayDuration() / speed.millisPerDay or 0.0
 		return {
 			elapsed = elapsedMs / 1000,
 			year = year / 1000,
 			nextDate = nextDate,
+			speed = factor,
 		}
 	end)
 	local iconRef = react.useNodeRef()
@@ -82,6 +87,11 @@ local ReleaseCalendarClockPlugin = react.RegisterPluginRecipe(game_bar_widgets.G
 	-- 0.25x looked like a wrong year length (12.10.2026)
 	if st.nextDate then
 		lines[#lines + 1] = tr("clock_next", { date = st.nextDate })
+	end
+	-- at a calendar speed other than 1x the period is not a calendar year (13.10.2026); the factor as the game's
+	-- calendar speed control writes it ("0.25x")
+	if st.speed > 0 and math.abs(st.speed - 1.0) > 0.001 then
+		lines[#lines + 1] = tr("clock_speed", { speed = lang_util.format(_("{value}x"), { value = lang_util.formatNumber(st.speed, 2) }) })
 	end
 	lines[#lines + 1] = tr("clock_click")
 	return builtin.BoxLayout{
